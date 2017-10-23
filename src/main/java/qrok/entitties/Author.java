@@ -1,7 +1,7 @@
-package entitties;
+package qrok.entitties;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +19,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import entities.enums.Sex;
+
+
+import qrok.entities.enums.Sex;
 
 
 @Entity

@@ -1,4 +1,4 @@
-package entitties;
+package qrok.entitties;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import entities.enums.Genre;
+import qrok.entities.enums.Genre;
 
 
 @Entity

@@ -1,12 +1,12 @@
-package services;
+package qrok.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import entitties.Reward;
-import repositories.RewardRepository;
+import qrok.entitties.Reward;
+import qrok.repositories.RewardRepository;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

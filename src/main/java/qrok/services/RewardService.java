@@ -1,6 +1,6 @@
-package services;
+package qrok.services;
 
-import entitties.Reward;
+import qrok.entitties.Reward;
 
 public interface RewardService {
 

@@ -1,4 +1,4 @@
-package controllers;
+package qrok.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import entitties.Author;
-import services.AuthorService;
-import services.BookService;
-import services.RewardService;
+import qrok.entitties.Author;
+import qrok.services.AuthorService;
+import qrok.services.BookService;
+import qrok.services.RewardService;
 
 @RestController
 @RequestMapping(value = "/authors")

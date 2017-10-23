@@ -1,4 +1,4 @@
-package entitties;
+package qrok.entitties;
 
 import java.io.Serializable;
 

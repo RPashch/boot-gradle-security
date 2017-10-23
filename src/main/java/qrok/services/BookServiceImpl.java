@@ -1,4 +1,4 @@
-package services;
+package qrok.services;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import entitties.Author;
-import entitties.Book;
-import repositories.AuthorRepository;
-import repositories.BookRepository;
+import qrok.entitties.Author;
+import qrok.entitties.Book;
+import qrok.repositories.AuthorRepository;
+import qrok.repositories.BookRepository;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

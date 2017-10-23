@@ -1,9 +1,9 @@
-package services;
+package qrok.services;
 
 import java.util.List;
 
-import entitties.Author;
-import entitties.Book;
+import qrok.entitties.Author;
+import qrok.entitties.Book;
 
 public interface BookService {
 	

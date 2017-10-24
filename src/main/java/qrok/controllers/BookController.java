@@ -37,17 +37,17 @@ public class BookController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView saveBook(@ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
-            return new ModelAndView("redirect:/all");
+            return new ModelAndView("redirect:/books/all");
         }
 		bookService.add(book);
 		// return "redirect:/all";
-		return new ModelAndView("redirect:/all");
+		return new ModelAndView("redirect:/books/all");
 	}
 
 	@RequestMapping(value = "/remove/{id}") // method = RequestMethod.GET
 	public String removeBook(@PathVariable("id") long id) {
 		bookService.delete(id);
-		return "redirect:/all";
+		return "redirect:/books/all";
 
 	}
 

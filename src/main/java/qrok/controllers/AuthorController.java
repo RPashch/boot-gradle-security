@@ -1,13 +1,19 @@
 package qrok.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import qrok.entitties.Author;
@@ -15,7 +21,8 @@ import qrok.services.AuthorService;
 import qrok.services.BookService;
 import qrok.services.RewardService;
 
-@RestController
+//@RestController
+@Controller
 @RequestMapping(value = "/authors")
 public class AuthorController {
 	@Autowired
@@ -39,17 +46,19 @@ public class AuthorController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView saveAuthor(@ModelAttribute("author") Author author, BindingResult result) {
         if (result.hasErrors()) {
-            return new ModelAndView("redirect:/all");
+        	System.out.println(author.getBirthDate());
+        	System.out.println(author.getFirstName());
+            return new ModelAndView("redirect:/authors/all");
         }
 		authorService.add(author);
 		// return "redirect:/all";
-		return new ModelAndView("redirect:/all");//return new ModelAndView("redirect:/authors/all");
+		return new ModelAndView("redirect:/authors/all");//return new ModelAndView("redirect:/authors/all");
 	}
 	
 	@RequestMapping(value = "/remove/{id}") // method = RequestMethod.GET
 	public String removeAuthor(@PathVariable("id") long id) {
 		authorService.delete(id);
-		return "redirect:/all";
+		return "redirect:/authors/all";
 
 	}
 	
@@ -72,5 +81,13 @@ public class AuthorController {
 		model.addAttribute("author", authorService.getAuthorById(id));
 		model.addAttribute("allBooks", authorService.getBooksByAuthorId(id));
 		return "authorData";
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+	    dateFormat.setLenient(false);
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(
+	            dateFormat, false));
 	}
 }

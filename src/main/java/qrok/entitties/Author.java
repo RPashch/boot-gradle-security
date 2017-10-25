@@ -20,7 +20,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-
 import qrok.entities.enums.Sex;
 
 
@@ -46,6 +45,7 @@ public class Author implements Serializable{
 	private Sex sex;
 	
 	@Column(name = "birth_date")
+	//@DateTimeFormat(pattern = "dd/MM/yyyy") //It doesn't relate to this app
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import qrok.entitties.Author;
 import qrok.entitties.Book;
 import qrok.services.AuthorService;
 import qrok.services.BookService;
@@ -24,7 +25,7 @@ public class BookController {
 	@Autowired
 	AuthorService authorService;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/all")//, method = RequestMethod.GET
 	public String listBooks(Model model) {
 		model.addAttribute("book", new Book());
 		//model.addAttribute("author", new Author());
@@ -60,14 +61,36 @@ public class BookController {
 
 	@RequestMapping(value = "/data/{id}") // method = RequestMethod.GET
 	public String dataBook(@PathVariable("id") long id, Model model) {
+		model.addAttribute("author", new Author());
 		model.addAttribute("book", bookService.getBookById(id));
 		return "bookData";
 	}
 	
 	@RequestMapping(value = "/data/detail/{id}") // method = RequestMethod.GET
 	public String dataBookDetail(@PathVariable("id") long id, Model model) {
+		model.addAttribute("author", new Author());
 		model.addAttribute("book", bookService.getBookById(id));
-		model.addAttribute("allAuthors", bookService.getAuthorsByBookId(id));
+		model.addAttribute("allAuthorsThisBook", bookService.getAuthorsByBookId(id));
+		model.addAttribute("allAuthors", authorService.getAll());
 		return "bookData";
+	}
+	
+	@RequestMapping(value = "/data/detail/{id}", method = RequestMethod.POST)
+	public String addAuthorToBook(@PathVariable("id") long id, @ModelAttribute("author") Author author, BindingResult result) {
+		if (result.hasErrors()) {
+            return "redirect:/books/data/detail/" + id;
+        }
+		
+		Author authorToThisBook = authorService.getAuthorById(author.getId());
+		Book book = bookService.getBookById(id);
+		if(!book.getAuthors().contains(authorToThisBook)){
+			book.getAuthors().add(authorToThisBook);
+			bookService.add(book);
+		}
+		
+		//model.addAttribute("allAuthors", bookService.getAuthorsByBookId(id));
+		//return "bookData";
+		
+		return "redirect:/books/data/detail/" + id;
 	}
 }

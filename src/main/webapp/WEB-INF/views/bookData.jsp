@@ -47,6 +47,9 @@
 	    </style>
 </head>
 <body>
+	<br/>
+	<a href="<c:url value="/books/all"/>">Show all books</a>
+	<br/>
 	<h1>Information about concrete book</h1>
 	<br/>
 	
@@ -63,13 +66,13 @@
 	        <td>${book.title}</td>
 	        <td>${book.isbn}</td>
 	        <td>${book.genre}</td>
-	        <td><a href="<c:url value='/books/data/detail/${book.id}' />">Authors</a></td>
+	        <td><a href="<c:url value='/books/data/detail/${book.id}' />">List authors</a></td>
 	    </tr>
 	</table>	
 	<br />
 	<br />
 	<br />
-	<c:if test="${empty allAuthorsThisBook}">
+	<c:if test="${empty allAuthorsThisBook && !empty allAuthors}">
 		<h3>Author(or authors) this book is unknown or isn't specified</h3>
 	</c:if>
 	<c:if test="${!empty allAuthorsThisBook}">

@@ -48,7 +48,10 @@
 </head>
 </head>
 <body>
-<h1>Information about one of the authors</h1>
+	<br/>
+	<a href="<c:url value="/authors/all"/>">Show all authors</a>
+	<br/>
+	<h1>Information about one of the authors</h1>
 	<br/>
 	
 	<table class="tg">
@@ -67,8 +70,8 @@
 	        <td>${author.lastName}</td>
 	        <td>${author.sex}</td>
 	        <td>${author.birthDate}</td>
-	        <td><a href="<c:url value='/authors/data/books/${author.id}' />">Books</a></td>
-	        <td><a href="<c:url value='/authors/data/rewards/${author.id}' />">Rewards</a></td>
+	        <td><a href="<c:url value='/authors/data/books/${author.id}' />">List books</a></td>
+	        <td><a href="<c:url value='/authors/data/rewards/${author.id}' />">List rewards</a></td>
 	    </tr>
 	    
 	</table>	
@@ -76,7 +79,7 @@
 	<br />
 	<br />
 	
-	<c:if test="${empty allBooksThisAuthor}">
+	<c:if test="${empty allBooksThisAuthor && !empty allBooks}">
 	<h3>There aren't books of this author</h3>
 	</c:if>
 	<c:if test="${!empty allBooksThisAuthor}">

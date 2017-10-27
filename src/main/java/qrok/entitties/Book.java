@@ -119,11 +119,6 @@ public class Book implements Serializable {
 			return false;
 		if (genre != other.genre)
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		if (isbn == null) {
 			if (other.isbn != null)
 				return false;

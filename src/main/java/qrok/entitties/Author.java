@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -49,7 +51,10 @@ public class Author implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 
-	@ManyToMany(fetch = FetchType.LAZY,	mappedBy = "authors")
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL) //,	mappedBy = "authors")
+	@JoinTable(name = "authors_books", joinColumns = {
+			@JoinColumn(name = "author_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+					@JoinColumn(name = "book_id", nullable = false, updatable = false) })
 	private List<Book> books;
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "author")

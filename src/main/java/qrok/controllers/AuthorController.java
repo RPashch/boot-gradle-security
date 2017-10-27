@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import qrok.entitties.Author;
+import qrok.entitties.Book;
 import qrok.services.AuthorService;
 import qrok.services.BookService;
 import qrok.services.RewardService;
@@ -72,12 +73,43 @@ public class AuthorController {
 	
 	@RequestMapping(value = "/data/{id}") // method = RequestMethod.GET
 	public String dataAuthor(@PathVariable("id") long id, Model model) {
+		model.addAttribute("book", new Book());
 		model.addAttribute("author", authorService.getAuthorById(id));
 		return "authorData";
 	}
 	
-	@RequestMapping(value = "/data/detail/{id}") // method = RequestMethod.GET
-	public String dataAuthorDetail(@PathVariable("id") long id, Model model) {
+	@RequestMapping(value = "/data/books/{id}") // method = RequestMethod.GET
+	public String dataAuthorAllBooks(@PathVariable("id") long id, Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("author", authorService.getAuthorById(id));
+		model.addAttribute("allBooksThisAuthor", authorService.getBooksByAuthorId(id));
+		//System.out.println(authorService.getBooksByAuthorId(id));
+		model.addAttribute("allBooks", bookService.getAllBooks());
+		//System.out.println(bookService.getAllBooks());
+		return "authorData";
+	}
+	
+	@RequestMapping(value = "/data/books/{id}", method = RequestMethod.POST) 
+	public String addBookToAuthor(@PathVariable("id") long id,  @ModelAttribute("book") Book book, BindingResult result) {
+		if (result.hasErrors()) {
+			//System.out.println("fail");
+			return "redirect:/authors/data/books/" + id;
+        }
+		Book bookToThisAuthor = bookService.getBookById(book.getId());
+		//System.out.println(bookToThisAuthor);
+		Author author = authorService.getAuthorById(id);
+		//System.out.println(author);
+		if(!author.getBooks().contains(bookToThisAuthor)){
+			author.getBooks().add(bookToThisAuthor);
+			//System.out.println(author.getBooks());
+			authorService.add(author);
+			//System.out.println(authorService.getAuthorById(id).getBooks());
+		}
+		return "redirect:/authors/data/books/" + id;
+	}
+
+	@RequestMapping(value = "/data/rewards/{id}") // method = RequestMethod.GET
+	public String dataAuthorAllRewards(@PathVariable("id") long id, Model model) {
 		model.addAttribute("author", authorService.getAuthorById(id));
 		model.addAttribute("allBooks", authorService.getBooksByAuthorId(id));
 		return "authorData";

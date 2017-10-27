@@ -57,7 +57,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public List<Book> getBooksByAuthorId(long id) {
-		return bookRepository.getBooksByAuthorId(id);
+		return authorRepository.getOne(id).getBooks();
 	}
 
 	@Override

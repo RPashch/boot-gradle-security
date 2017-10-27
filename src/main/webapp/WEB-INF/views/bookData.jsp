@@ -82,7 +82,7 @@
 	        <c:forEach items="${allAuthorsThisBook}" var="author">
 	            <tr>
 	                <td>${author.id}</td>
-	                <td><a href="<c:url value='/books/data/detail/${author.id}' />" target="_self">${author.firstName} ${author.lastName}</a>	            
+	                <td><a href="<c:url value='/authors/data/${author.id}' />" target="_self">${author.firstName} ${author.lastName}</a>	            
 	           	</tr>
 	        </c:forEach>
 	    </table>

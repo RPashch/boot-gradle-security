@@ -1,5 +1,7 @@
 package qrok.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -35,6 +37,11 @@ public class RewardServiceImpl implements RewardService {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public Reward edit(Reward reward) {
 		return rewardRepository.saveAndFlush(reward);
+	}
+
+	@Override
+	public List<Reward> getAllRewards() {
+		return rewardRepository.findAll();
 	}
 }
 

@@ -128,5 +128,64 @@
 	    </table>
 	</form:form>
 	</c:if>
+	
+	
+	
+	<c:if test="${!empty flagShowRewardFormAndTable}">
+		<c:if test="${empty allRewardsThisAuthor}">
+		<h3>There aren't rewards of this author</h3>
+		</c:if>
+		<c:if test="${!empty allRewardsThisAuthor}">
+		    <table class="tg">
+		        <caption>Rewards which author was awarded</caption>
+		        <tr>
+		            <th width="20">id</th>
+		            <th width="250">Title</th>
+		            <th width="100">Year</th>
+		        </tr>
+		        <c:forEach items="${allRewardsThisAuthor}" var="rewardExist">
+		            <tr>
+		                <td>${rewardExist.id}</td>
+		                <td>${rewardExist.title}</td>
+		                <td>${rewardExist.year}</td>
+		           	</tr>
+		        </c:forEach>
+		    </table>
+		</c:if>
+		<br>
+		
+		<br>
+		<c:url var="addRewardToAuthor" value="/authors/data/rewards/${author.id}"/>
+		
+		<form:form action="${addRewardToAuthor}" commandName="reward" method="post">
+		    <table>
+		        <tr>
+		            <td>
+		                <form:label path="title">
+		                    <spring:message text="Title"/>
+		                </form:label>
+		            </td>
+		            <td>
+		                <form:input path="title"/>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td>
+		                <form:label path="year">
+		                    <spring:message text="Year"/>
+		                </form:label>
+		            </td>
+		            <td>
+		                <form:input path="year"/>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td colspan="2">
+		                    <input type="submit" value="<spring:message text="Add reward"/>"/>
+		            </td>
+		        </tr>
+		    </table>
+		</form:form>
+	</c:if>
 </body>
 </html>

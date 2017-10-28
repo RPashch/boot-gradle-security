@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import qrok.entitties.Author;
 import qrok.entitties.Book;
+import qrok.entitties.Reward;
 import qrok.services.AuthorService;
 import qrok.services.BookService;
 import qrok.services.RewardService;
@@ -47,8 +48,8 @@ public class AuthorController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView saveAuthor(@ModelAttribute("author") Author author, BindingResult result) {
         if (result.hasErrors()) {
-        	System.out.println(author.getBirthDate());
-        	System.out.println(author.getFirstName());
+        	//System.out.println(author.getBirthDate());
+        	//System.out.println(author.getFirstName());
             return new ModelAndView("redirect:/authors/all");
         }
 		authorService.add(author);
@@ -74,6 +75,7 @@ public class AuthorController {
 	@RequestMapping(value = "/data/{id}") // method = RequestMethod.GET
 	public String dataAuthor(@PathVariable("id") long id, Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("reward", new Reward());
 		model.addAttribute("author", authorService.getAuthorById(id));
 		return "authorData";
 	}
@@ -110,9 +112,38 @@ public class AuthorController {
 
 	@RequestMapping(value = "/data/rewards/{id}") // method = RequestMethod.GET
 	public String dataAuthorAllRewards(@PathVariable("id") long id, Model model) {
+		model.addAttribute("reward", new Reward());
 		model.addAttribute("author", authorService.getAuthorById(id));
-		model.addAttribute("allBooks", authorService.getBooksByAuthorId(id));
+		model.addAttribute("allRewardsThisAuthor", authorService.getRewardsByAuthorId(id));
+		model.addAttribute("flagShowRewardFormAndTable", "true");
+		//model.addAttribute("allRewards", rewardService.getAllRewards());
 		return "authorData";
+	}
+	
+	@RequestMapping(value = "/data/rewards/{id}", method = RequestMethod.POST) 
+	public String addRewardToAuthor(@PathVariable("id") long id,  @ModelAttribute("reward") Reward reward, BindingResult result) {
+		if (result.hasErrors()) {
+			//System.out.println("fail");
+			return "redirect:/authors/data/rewards/" + id;
+        }
+		//System.out.println(reward);
+		Author author = authorService.getAuthorById(id);
+		//System.out.println(author);
+		reward.setId((long) 0);
+		reward.setAuthor(author);
+		//System.out.println(reward);
+		rewardService.add(reward);
+		//authorService.add(author);
+		//Reward rewardToThisAuthor = rewardService.getRewardById(reward.getId());
+		//System.out.println(bookToThisAuthor);
+		//System.out.println(author);
+		/*if(!author.getRewards().contains(reward)){
+			author.getRewards().add(reward);
+			System.out.println(author.getRewards());
+			authorService.add(author);
+			System.out.println(authorService.getAuthorById(id).getRewards());
+		}*/
+		return "redirect:/authors/data/rewards/" + id;
 	}
 	
 	@InitBinder

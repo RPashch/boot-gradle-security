@@ -116,7 +116,7 @@ public class Reward implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Reward [id=" + id + ", title=" + title + ", year=" + year + ", author=" + author + "]";
+		return "Reward [id=" + id + ", title=" + title + ", year=" + year + "]";
 	}
 
 }

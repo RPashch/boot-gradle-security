@@ -62,6 +62,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public List<Reward> getRewardsByAuthorId(long id) {
-		return rewardRepository.getRewardsByAuthorId(id);
+		return authorRepository.getOne(id).getRewards();
+		//return rewardRepository.getRewardsByAuthorId(id);
 	}
 }

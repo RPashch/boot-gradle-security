@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,16 +25,16 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepo;
 	
-	//@Autowired
-    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public User add(User user) {
-		//user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		Set<Role> roles = new HashSet<>();
-        roles.add(roleRepo.getOne(2L));
+        roles.add(roleRepo.findByName("USER"));
         user.setRoles(roles);
 		return userRepo.saveAndFlush(user); 
 	}

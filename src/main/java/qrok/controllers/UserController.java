@@ -17,6 +17,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	//@Autowired
+    //private UserValidator userValidator;
 
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	public String welcome(Model model) {
@@ -45,7 +48,7 @@ public class UserController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(@ModelAttribute("userForm") @Validated User userForm, BindingResult bindingResult,
 			Model model) {
-		// userValidator.validate(userForm, bindingResult);
+		//userValidator.validate(userForm, bindingResult);
 		User userExists = userService.findByUsername(userForm.getUsername());
 		if(userExists!=null){
 			bindingResult
@@ -59,8 +62,7 @@ public class UserController {
 
 		userService.add(userForm);
 
-		// securityService.autoLogin(userForm.getUsername(),
-		// userForm.getConfirmPassword());
+		// securityService.autoLogin(userForm.getUsername(),userForm.getConfirmPassword());
 
 		return "redirect:/welcome";
 	}

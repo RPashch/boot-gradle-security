@@ -28,6 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
 
+	//configure method + queries in application.properties realise 
+	//mechanism userDetailsImpl
+	//that is you shouldn't create SecurityService, its implementation and UserDetailImpl
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {

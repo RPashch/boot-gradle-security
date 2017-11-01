@@ -6,10 +6,10 @@ insert into roles values (2, "USER");
 INSERT INTO user_roles VALUES (1, 2);
 
 INSERT INTO authors VALUES (1,"Ernest", "Hemingway", "MAN",DATE "1989-07-21");
-INSERT INTO authors VALUES (2,"Lev", "Tolstoy", "MAN",DATE "1828-09-09");
+INSERT INTO authors VALUES (2,"Lev", "Tolstoy", "MAN",DATE "1928-09-09");
 INSERT INTO authors VALUES (3,"Joan", "Rowling", "WOMAN",DATE "1965-07-31");
-INSERT INTO authors VALUES (4,"Ivan", "Ivanov", "MAN",DATE "1900-01-01");
-INSERT INTO authors VALUES (5,"Olga", "Kiev", "WOMAN",DATE "988-05-05");
+INSERT INTO authors VALUES (4,"Ivan", "Ivanov", "MAN",DATE "2000-01-01");
+INSERT INTO authors VALUES (5,"Olga", "Kiev", "WOMAN",DATE "1988-05-05");
 
 INSERT INTO books VALUES (1,"Goodbye gun", "10452820", "ROMANCE");
 INSERT INTO books VALUES (2,"War and peace", "44867866", "ROMANCE");

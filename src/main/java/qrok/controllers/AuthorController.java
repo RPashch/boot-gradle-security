@@ -1,10 +1,15 @@
 package qrok.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import qrok.dto.AuthorDTO;
 import qrok.entitties.Author;
 import qrok.entitties.Book;
 import qrok.entitties.Reward;
@@ -144,6 +150,33 @@ public class AuthorController {
 			System.out.println(authorService.getAuthorById(id).getRewards());
 		}*/
 		return "redirect:/authors/data/rewards/" + id;
+	}
+	
+	@RequestMapping(value = "/author/info/short/{id}", method = RequestMethod.GET)
+	//public @ResponseBody Author getAuthor(@PathVariable("id") long id) {
+	public ResponseEntity<?> getAuthor(@PathVariable("id") long id) {
+		Author author = authorService.getAuthorById(id);
+		if(author==null){
+			return new ResponseEntity<String>("Author with required id don't exist", HttpStatus.NO_CONTENT);
+		}
+		AuthorDTO authorDTO = new AuthorDTO();
+		List <String> titles = new ArrayList<String>();
+		Stream <Book> listBooks = author.getBooks().stream();
+		listBooks.forEach(b -> titles.add(b.getTitle()));
+		/*List <String> titles = new ArrayList<String>();;
+		for (Book b : listBooks){
+			titles.add(b.getTitle());
+		}*/
+		//List <String> titles = (List<String>) listBooks.stream();
+					//.flatMap(b -> b.getTitle().stream())
+					//.collect(Collectors.toList());
+		authorDTO.setFirstName(author.getFirstName())
+				.setLastName(author.getLastName())
+				.setAge(authorDTO.getQuantityAuthorYers(author.getBirthDate()))
+				.setBooks(titles);
+				//		.flatMap(b -> b.getTitle().stream())
+				//		.collect(Collectors.toList()));//
+		return new ResponseEntity<AuthorDTO>(authorDTO, HttpStatus.OK);
 	}
 	
 	@InitBinder

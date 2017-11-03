@@ -40,6 +40,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.authoritiesByUsernameQuery(rolesQuery)
 				.dataSource(dataSource)
 				.passwordEncoder(bCryptPasswordEncoder);
+		
+		//postman authentification
+		//auth.jdbcAuthentication().dataSource(dataSource).withUser("postman")
+		//.password("password").roles("USER");
 	}
 
 	@Override

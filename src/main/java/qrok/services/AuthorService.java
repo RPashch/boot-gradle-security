@@ -13,6 +13,8 @@ public interface AuthorService {
 	public Author add(Author author);
 
 	public void delete(long id);
+	
+	public void deleteAll();
 
 	public Author edit(Author author);
 

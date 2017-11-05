@@ -50,5 +50,10 @@ public class BookServiceImpl implements BookService{
 	public List<Author> getAuthorsByBookId(long id) {
 		return bookRepository.getOne(id).getAuthors();
 	}
+
+	@Override
+	public void deleteAll() {
+		bookRepository.deleteAll();
+	}
 }
 

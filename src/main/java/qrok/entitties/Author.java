@@ -63,6 +63,13 @@ public class Author implements Serializable{
 	public Author(){
 		
 	}
+	
+	public Author(String firstName, String lastName, Sex sex, Date birthDate) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.sex = sex;
+		this.birthDate = birthDate;
+	}
 
 	public Long getId() {
 		return id;
@@ -181,7 +188,7 @@ public class Author implements Serializable{
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", sex=" + sex
-				+ ", birthDate=" + birthDate + ", rewards=" + rewards + "]";
+				+ ", birthDate=" + birthDate + "]";
 	}
 	
 	

@@ -65,4 +65,9 @@ public class AuthorServiceImpl implements AuthorService {
 		return authorRepository.getOne(id).getRewards();
 		//return rewardRepository.getRewardsByAuthorId(id);
 	}
+
+	@Override
+	public void deleteAll() {
+		authorRepository.deleteAll();
+	}
 }

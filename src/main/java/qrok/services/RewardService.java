@@ -12,6 +12,8 @@ public interface RewardService {
 
 	public void delete(long id);
 	
+	public void deleteAll();
+	
 	public List<Reward> getAllRewards();
 
 	public Reward edit(Reward reward);

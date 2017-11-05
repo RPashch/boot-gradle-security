@@ -12,6 +12,8 @@ public interface BookService {
 	public Book add(Book book);
 
 	public void delete(long id);
+	
+	public void deleteAll();
 
 	public Book edit(Book book);
 

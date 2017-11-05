@@ -38,6 +38,14 @@ public class Reward implements Serializable {
 	public Reward() {
 
 	}
+	
+	public Reward(String title, Integer year, Author author) {
+		this.title = title;
+		this.year = year;
+		this.author = author;
+	}
+
+
 
 	public Long getId() {
 		return id;

@@ -43,5 +43,10 @@ public class RewardServiceImpl implements RewardService {
 	public List<Reward> getAllRewards() {
 		return rewardRepository.findAll();
 	}
+
+	@Override
+	public void deleteAll() {
+		rewardRepository.deleteAll();
+	}
 }
 

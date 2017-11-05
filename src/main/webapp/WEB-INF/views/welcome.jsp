@@ -13,7 +13,6 @@
     <title>Welcome</title>
 </head>
 <body>
-<h1>"contextPath:" ${pageContext.request.contextPath}</h1>
 
 <p>
     <br/>
